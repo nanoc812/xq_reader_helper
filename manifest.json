@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "雪球文章分析助手",
+  "version": "1.0.0",
+  "description": "雪球网站文章分析工具，支持大模型内容总结和分析",
+  "permissions": [
+    "sidePanel",
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://xueqiu.com/*",
+    "https://api.moonshot.cn/*",
+    "https://dashscope.aliyuncs.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "side_panel": {
+    "default_path": "sidebar.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://xueqiu.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}

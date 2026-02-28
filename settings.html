@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API设置</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="settings-container">
+    <div class="settings-header">
+      <h1>API设置</h1>
+    </div>
+
+    <div class="settings-form">
+      <div class="form-group">
+        <label for="apiProvider">大模型服务商</label>
+        <select id="apiProvider">
+          <option value="kimi">Kimi (Moonshot)</option>
+          <option value="qwen">阿里通义千问</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="apiKey">API Key</label>
+        <input type="password" id="apiKey" placeholder="请输入API Key">
+      </div>
+
+      <div class="form-group">
+        <label for="modelName">模型名称</label>
+        <input type="text" id="modelName" placeholder="自动填充或手动输入">
+      </div>
+
+      <div class="form-group">
+        <label>
+          <input type="checkbox" id="enableWebSearch" checked>
+          启用联网搜索
+        </label>
+      </div>
+
+      <div class="button-group">
+        <button id="saveBtn" class="save-btn">保存设置</button>
+        <button id="backBtn" class="back-btn">返回</button>
+      </div>
+
+      <div class="status-message" id="statusMessage"></div>
+    </div>
+
+    <div class="help-section">
+      <h3>使用说明</h3>
+      <div class="help-content">
+        <p><strong>Kimi API:</strong></p>
+        <ul>
+          <li>获取API Key: <a href="https://platform.moonshot.cn/" target="_blank">Moonshot开放平台</a></li>
+          <li>推荐模型: moonshot-v1-8k, moonshot-v1-32k, moonshot-v1-128k</li>
+        </ul>
+        <p><strong>通义千问 API:</strong></p>
+        <ul>
+          <li>获取API Key: <a href="https://dashscope.console.aliyun.com/" target="_blank">阿里云DashScope</a></li>
+          <li>推荐模型: qwen-turbo, qwen-plus, qwen-max</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="settings.js"></script>
+</body>
+</html>
