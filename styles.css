@@ -333,6 +333,25 @@ body {
   font-family: inherit;
 }
 
+.form-group textarea {
+  width: 418px;
+  height: 160px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  resize: none;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.form-group textarea:focus {
+  outline: none;
+  border-color: #1a73e8;
+  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+}
+
 .form-group input:focus,
 .form-group select:focus {
   outline: none;

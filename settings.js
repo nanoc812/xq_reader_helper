@@ -6,11 +6,23 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('backBtn').addEventListener('click', () => {
     window.close();
   });
+  
+  const customPromptEl = document.getElementById('customPrompt');
+  const promptCountEl = document.getElementById('promptCount');
+  customPromptEl.addEventListener('input', () => {
+    const len = customPromptEl.value.length;
+    promptCountEl.textContent = `${len}/5000`;
+    if (len > 5000) {
+      promptCountEl.style.color = '#d32f2f';
+    } else {
+      promptCountEl.style.color = '';
+    }
+  });
 });
 
 async function loadSettings() {
   try {
-    const settings = await chrome.storage.local.get(['apiProvider', 'apiKey', 'modelName', 'enableWebSearch']);
+    const settings = await chrome.storage.local.get(['apiProvider', 'apiKey', 'modelName', 'enableWebSearch', 'customPrompt']);
     
     if (settings.apiProvider) {
       document.getElementById('apiProvider').value = settings.apiProvider;
@@ -22,6 +34,10 @@ async function loadSettings() {
       document.getElementById('modelName').value = settings.modelName;
     }
     document.getElementById('enableWebSearch').checked = settings.enableWebSearch !== false;
+    if (settings.customPrompt) {
+      document.getElementById('customPrompt').value = settings.customPrompt;
+      document.getElementById('promptCount').textContent = `${settings.customPrompt.length}/5000`;
+    }
     
     handleProviderChange();
   } catch (error) {
@@ -51,6 +67,7 @@ async function saveSettings() {
   const apiKey = document.getElementById('apiKey').value.trim();
   const modelName = document.getElementById('modelName').value.trim();
   const enableWebSearch = document.getElementById('enableWebSearch').checked;
+  const customPrompt = document.getElementById('customPrompt').value.trim();
   
   if (!apiKey) {
     showStatus('请输入API Key', 'error');
@@ -62,7 +79,8 @@ async function saveSettings() {
       apiProvider: provider,
       apiKey: apiKey,
       modelName: modelName,
-      enableWebSearch: enableWebSearch
+      enableWebSearch: enableWebSearch,
+      customPrompt: customPrompt
     });
     
     showStatus('设置保存成功！', 'success');

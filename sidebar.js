@@ -40,6 +40,13 @@ function handleModeChange() {
 
 async function loadSystemPrompt() {
   try {
+    const settings = await chrome.storage.local.get('customPrompt');
+    
+    if (settings.customPrompt && settings.customPrompt.trim()) {
+      systemPrompt = settings.customPrompt.trim();
+      return;
+    }
+    
     const response = await fetch('cw_Prompt.md');
     if (!response.ok) {
       throw new Error('Failed to load prompt file');
