@@ -1,5 +1,6 @@
 let systemPrompt = '';
 let isAnalyzing = false;
+let inputFocused = false;
 
 document.addEventListener('DOMContentLoaded', async () => {
   await loadSystemPrompt();
@@ -11,8 +12,31 @@ document.addEventListener('DOMContentLoaded', async () => {
   
   document.getElementById('analyzeBtn').addEventListener('click', handleAnalyze);
   
-  document.getElementById('apiProvider').addEventListener('change', updateModelName);
+  const apiProviderEl = document.getElementById('apiProvider');
+  if (apiProviderEl) {
+    apiProviderEl.addEventListener('change', updateModelName);
+  }
+  
+  const modeRadios = document.querySelectorAll('input[name="mode"]');
+  modeRadios.forEach(radio => {
+    radio.addEventListener('change', handleModeChange);
+  });
+  
+  const inputText = document.getElementById('inputText');
+  if (inputText) {
+    inputText.addEventListener('focus', () => {
+      inputFocused = true;
+    });
+  }
 });
+
+function handleModeChange() {
+  const inputText = document.getElementById('inputText');
+  if (inputFocused && inputText) {
+    inputText.value = '';
+    inputFocused = false;
+  }
+}
 
 async function loadSystemPrompt() {
   try {
